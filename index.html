@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquire Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .enquire-form-container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .enquire-form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .enquire-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .enquire-form label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .enquire-form input, 
+        .enquire-form textarea {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #fdfdfd;
+            transition: border-color 0.3s;
+        }
+
+        .enquire-form input:focus, 
+        .enquire-form textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .enquire-form textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        .enquire-form button {
+            background: #007bff;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .enquire-form button:hover {
+            background: #0056b3;
+        }
+
+        .enquire-form small {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="enquire-form-container">
+        <h2>Enquire Now</h2>
+        <form class="enquire-form" id="enquire-form">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message or query" required></textarea>
+
+            <button type="submit">Submit Enquiry</button>
+            <small>We will get back to you within 24-48 hours.</small>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init('hvUoCTMJHiT1yid-l'); // Replace with your EmailJS user ID
+
+        const form = document.getElementById('enquire-form');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Gather form data
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                message: form.message.value,
+            };
+
+            // Use EmailJS to send the email
+            emailjs.send('service_sh057qd', 'template_xxx123', formData) // Replace template_xxx123 with your template ID
+                .then(() => {
+                    alert('Your enquiry has been sent successfully!');
+                    form.reset(); // Clear the form after submission
+                })
+                .catch(error => {
+                    console.error('Failed to send enquiry:', error);
+                    alert('Failed to send your enquiry. Please try again.');
+                });
+        });
+    </script>
+</body>
+</html>
